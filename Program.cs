@@ -231,7 +231,22 @@ namespace Nomes
         }
         static void Ordem(string[] listanomes)
         {
-            Array.Sort(listanomes, StringComparer.OrdinalIgnoreCase);
+            bool loop4 = true;
+            while (loop4)
+            {
+                loop4 = false;
+                for (int i = 0; i < listanomes.Length - 1; i++)
+                {
+                    int compare = String.Compare(listanomes[i], listanomes[i + 1]);
+                    if (compare > 0)
+                    {
+                        string temp = listanomes[i];
+                        listanomes[i] = listanomes[i + 1];
+                        listanomes[i + 1] = temp;
+                        loop4 = true;
+                    }
+                }
+            }
         }
     }
 }
