@@ -23,18 +23,22 @@ namespace Nomes
                         {
                             if (ListaCheia(listanomes))
                             {
-                                Console.WriteLine("A lista de nomes está cheia.");
+                                Console.Clear();
+                                Console.WriteLine("A lista de nomes está cheia. \n ");
                                 break;
                             }
+                            Console.Clear();
                             Console.WriteLine("Digite o nome a ser adicionado ou pressione 'e' para retornar ao menu inicial:");
                             string input = Console.ReadLine();
                             if (input.ToLower() == "e")
                             {
                                 loop = false;
+                                Console.Clear();
                             }
                             else
                             {
                                 AddNomes(listanomes, input);
+                                Console.Clear();
                             }
                         }
                         break;
@@ -44,14 +48,17 @@ namespace Nomes
                         {
                             if (ListaCheia(listanomes))
                             {
-                            Console.WriteLine("A lista está cheia.");
-                            break;
+                                Console.Clear();
+                                Console.WriteLine("A lista está cheia. \n ");
+                                break;
                             }
+                            Console.Clear();
                             Console.WriteLine("Digite o nome a ser adicionado na posição específica ou pressione 'e' para retornar ao menu inicial:");
                             string input2 = Console.ReadLine();
                             if (input2.ToLower() == "e")
                             {
                                 loop2 = false;
+                                Console.Clear();
                             }
                             else
                             {
@@ -59,18 +66,22 @@ namespace Nomes
                                 string inputdigito = Console.ReadLine();
                                 int digito = int.Parse(inputdigito) - 1;
                                 AddEsp(listanomes, input2, digito);
+                                Console.Clear();
                             }
                         }
                         break;
                     case 3:
                         if (ListaVazia(listanomes))
                         {
-                            Console.WriteLine("A lista está vazia.");
+                            Console.Clear();
+                            Console.WriteLine("A lista está vazia. \n ");
                             break;
                         }
                         else
                         {
+                            Console.Clear();
                             Show(listanomes);
+                            Console.WriteLine(" ");
                         }
                         break;
                     case 4:
@@ -79,19 +90,23 @@ namespace Nomes
                         {
                             if (ListaVazia(listanomes))
                             {
-                                Console.WriteLine("A lista está vazia.");
+                                Console.Clear();
+                                Console.WriteLine("A lista está vazia. \n ");
                                 break;
                             }
                             Console.WriteLine("Digite o índice do nome a ser removido (1-10) ou pressione 'e' para sair ou pressione 'x' para limpar a lista:");
                             string inputdelete = Console.ReadLine();
                             if (inputdelete.ToLower() == "e")
                             {
-                                loop3 = false;
+                                Console.Clear();
+                                break;
                             }
                             if (inputdelete.ToLower() == "x")
                             {
                                 Clear(listanomes, inputdelete);
-                                Console.WriteLine("Todos os nomes foram removidos.");
+                                Console.Clear();
+                                Console.WriteLine("Todos os nomes foram removidos. \n ");
+                                break;
                             }
                             if (inputdelete.ToLower() != "e" || inputdelete.ToLower() != "x")
                             {
@@ -99,27 +114,30 @@ namespace Nomes
                                 Console.WriteLine("Deseja reagrupar os nomes ('s'/'n')?");
                                 string inputregroup = Console.ReadLine();
                                 Delete(listanomes, digitodelete, inputregroup, inputdelete);
-                                break;
+                                Console.Clear();
+                                Console.WriteLine("O nome foi removido com sucesso. \n ");
                             }
                         }
                         break;
                     case 5:
                         if (ListaVazia(listanomes))
                         {
-                            Console.WriteLine("A lista está vazia.");
+                            Console.Clear();
+                            Console.WriteLine("A lista está vazia. \n ");
                             break;
                         }
                         else
                         {
+                            Console.Clear();
                             Ordem(listanomes);
-                            Console.WriteLine("A lista foi reorganizada.");
+                            Console.WriteLine("A lista foi reorganizada. \n ");
                         }
                         break;
                     case 6:
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Dígito inválido.");
+                        Console.WriteLine("Dígito inválido. \n ");
                         break;
                 }
             }
@@ -237,13 +255,23 @@ namespace Nomes
                 loop4 = false;
                 for (int i = 0; i < listanomes.Length - 1; i++)
                 {
-                    int compare = String.Compare(listanomes[i], listanomes[i + 1]);
-                    if (compare > 0)
+                    if (string.IsNullOrWhiteSpace(listanomes[i]) && !string.IsNullOrWhiteSpace(listanomes[i + 1]))
                     {
                         string temp = listanomes[i];
                         listanomes[i] = listanomes[i + 1];
                         listanomes[i + 1] = temp;
                         loop4 = true;
+                    }
+                    else if (!string.IsNullOrWhiteSpace(listanomes[i]) && !string.IsNullOrWhiteSpace(listanomes[i + 1]))
+                    {
+                        int compare = String.Compare(listanomes[i], listanomes[i + 1]);
+                        if (compare > 0)
+                        {
+                            string temp = listanomes[i];
+                            listanomes[i] = listanomes[i + 1];
+                            listanomes[i + 1] = temp;
+                            loop4 = true;
+                        }
                     }
                 }
             }
