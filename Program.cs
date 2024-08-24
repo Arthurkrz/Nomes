@@ -7,21 +7,25 @@ namespace Nomes
     {
         static void Main(string[] args)
         {
-            string[] listanomes = new string[10];
+            string[] listaNomes = new string[10];
+            string[] listaCarros = new string[10];
+            string[] listaFrutas = new string[10];
             bool controle = true;
             while (controle)
             {
-                Console.WriteLine("Digite o índice da operação a ser realizada: \n 1 - Adicionar nomes; \n 2 - Adicionar nomes em índices específicos; \n 3 - Mostrar todos os nomes;" +
+                Console.WriteLine("Bem vindo à biblioteca de listas!\n \nSelecione a lista a ser manipulada:\n1 - Pessoas;\n2 - Carros;\n3 - Frutas.");
+                int inputLista = int.Parse(Console.ReadLine());
+                string listaEscolhida = Logic.EscolhaLista(inputLista);
+                Console.WriteLine($"Bem vindo à lista de {listaEscolhida}!\n \nDigite o índice da operação a ser realizada: \n 1 - Adicionar nomes; \n 2 - Adicionar nomes em índices específicos; \n 3 - Mostrar todos os nomes;" +
                 " \n 4 - Remover um nome; \n 5 - Reagrupar nomes em ordem alfabética; \n 6 - Sair.");
-                string inputinicio = Console.ReadLine();
-                int digitoinicio = int.Parse(inputinicio);
-                switch (digitoinicio)
+                int digitoInicio = int.Parse(Console.ReadLine());
+                switch (digitoInicio)
                 {
                     case 1:
                         bool loop = true;
                         while (loop)
                         {
-                            if (ListaCheia(listanomes))
+                            if (ListaCheia(listaNomes))
                             {
                                 Console.Clear();
                                 Console.WriteLine("A lista de nomes está cheia. \n ");
@@ -37,7 +41,7 @@ namespace Nomes
                             }
                             else
                             {
-                                AddNomes(listanomes, input);
+                                AddNomes(listaNomes, input);
                                 Console.Clear();
                             }
                         }
@@ -46,7 +50,7 @@ namespace Nomes
                         bool loop2 = true;
                         while (loop2)
                         {
-                            if (ListaCheia(listanomes))
+                            if (ListaCheia(listaNomes))
                             {
                                 Console.Clear();
                                 Console.WriteLine("A lista está cheia. \n ");
@@ -63,15 +67,15 @@ namespace Nomes
                             else
                             {
                                 Console.WriteLine("Digite o índice do nome a ser adicionado (1-10):");
-                                string inputdigito = Console.ReadLine();
-                                int digito = int.Parse(inputdigito) - 1;
-                                AddEsp(listanomes, input2, digito);
+                                string inputDigito = Console.ReadLine();
+                                int digito = int.Parse(inputDigito) - 1;
+                                AddEsp(listaNomes, input2, digito);
                                 Console.Clear();
                             }
                         }
                         break;
                     case 3:
-                        if (ListaVazia(listanomes))
+                        if (ListaVazia(listaNomes))
                         {
                             Console.Clear();
                             Console.WriteLine("A lista está vazia. \n ");
@@ -80,7 +84,7 @@ namespace Nomes
                         else
                         {
                             Console.Clear();
-                            Show(listanomes);
+                            Show(listaNomes);
                             Console.WriteLine(" ");
                         }
                         break;
@@ -88,111 +92,111 @@ namespace Nomes
                         bool loop3 = true;
                         while (loop3)
                         {
-                            if (ListaVazia(listanomes))
+                            if (ListaVazia(listaNomes))
                             {
                                 Console.Clear();
                                 Console.WriteLine("A lista está vazia. \n ");
                                 break;
                             }
                             Console.WriteLine("Digite o índice do nome a ser removido (1-10) ou pressione 'e' para sair ou pressione 'x' para limpar a lista:");
-                            string inputdelete = Console.ReadLine();
-                            if (inputdelete.ToLower() == "e")
+                            string inputDelete = Console.ReadLine();
+                            if (inputDelete.ToLower() == "e")
                             {
                                 Console.Clear();
                                 break;
                             }
-                            if (inputdelete.ToLower() == "x")
+                            if (inputDelete.ToLower() == "x")
                             {
-                                Clear(listanomes, inputdelete);
+                                Clear(listaNomes);
                                 Console.Clear();
                                 Console.WriteLine("Todos os nomes foram removidos. \n ");
                                 break;
                             }
-                            if (inputdelete.ToLower() != "e" || inputdelete.ToLower() != "x")
+                            if (inputDelete.ToLower() != "e" || inputDelete.ToLower() != "x")
                             {
-                                int digitodelete = int.Parse(inputdelete) - 1;
+                                int digitoDelete = int.Parse(inputDelete) - 1;
                                 Console.WriteLine("Deseja reagrupar os nomes ('s'/'n')?");
                                 string inputregroup = Console.ReadLine();
-                                Delete(listanomes, digitodelete, inputregroup, inputdelete);
+                                Delete(listaNomes, digitoDelete, inputregroup, inputDelete);
                                 Console.Clear();
                                 Console.WriteLine("O nome foi removido com sucesso. \n ");
                             }
                         }
                         break;
                     case 5:
-                        if (ListaVazia(listanomes))
+                        if (ListaVazia(listaNomes))
                         {
                             Console.Clear();
-                            Console.WriteLine("A lista está vazia. \n ");
+                            Console.WriteLine("A lista está vazia.\n");
                             break;
                         }
                         else
                         {
                             Console.Clear();
-                            Ordem(listanomes);
-                            Console.WriteLine("A lista foi reorganizada. \n ");
+                            Ordem(listaNomes);
+                            Console.WriteLine("A lista foi reorganizada.\n");
                         }
                         break;
                     case 6:
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Dígito inválido. \n ");
+                        Console.WriteLine("Dígito inválido.\n");
                         break;
                 }
             }
         }
-        static void AddNomes(string[] listanomes, string input)
+        static void AddNomes(string[] listaNomes, string input)
         {
-            for (int i = 0; i < listanomes.Length; i++)
+            for (int i = 0; i < listaNomes.Length; i++)
             {
-                if (string.IsNullOrWhiteSpace(listanomes[i]))
+                if (string.IsNullOrWhiteSpace(listaNomes[i]))
                 {
-                    listanomes[i] = input;
+                    listaNomes[i] = input;
                     break;
                 }
             }
         }
-        public static bool ListaCheia(string[] listanomes)
+        public static bool ListaCheia(string[] listaNomes)
         {
-            for (int i = 0; i < listanomes.Length; i++)
+            for (int i = 0; i < listaNomes.Length; i++)
             {
-                if (string.IsNullOrWhiteSpace(listanomes[i]))
+                if (string.IsNullOrWhiteSpace(listaNomes[i]))
                 {
                     return false;
                 }
             }
             return true;
         }
-        public static bool ListaVazia(string[] listanomes)
+        public static bool ListaVazia(string[] listaNomes)
         {
-            for (int i = 0; i < listanomes.Length; i++)
+            for (int i = 0; i < listaNomes.Length; i++)
             {
-                if (!string.IsNullOrWhiteSpace(listanomes[i]))
+                if (!string.IsNullOrWhiteSpace(listaNomes[i]))
                 {
                     return false;
                 }
             }
             return true;
         }
-        static void AddEsp(string[] listanomes, string input2, int digito)
+        static void AddEsp(string[] listaNomes, string input2, int digito)
         {
-            if (string.IsNullOrWhiteSpace(listanomes[digito]))
+            if (string.IsNullOrWhiteSpace(listaNomes[digito]))
             {
-                listanomes[digito] = input2;
+                listaNomes[digito] = input2;
             }
             else
             {
                 bool shiftr = false;
-                for (int i = listanomes.Length - 1; i > digito; i--)
+                for (int i = listaNomes.Length - 1; i > digito; i--)
                 {
-                    if (string.IsNullOrWhiteSpace(listanomes[i]))
+                    if (string.IsNullOrWhiteSpace(listaNomes[i]))
                     {
                         for (int j = i; j > digito; j--)
                         {
-                            listanomes[j] = listanomes[j - 1];
+                            listaNomes[j] = listaNomes[j - 1];
                         }
-                        listanomes[digito] = input2;
+                        listaNomes[digito] = input2;
                         shiftr = true;
                         break;
                     }
@@ -201,75 +205,75 @@ namespace Nomes
                 {
                     for (int i = 0; i < digito; i++)
                     {
-                        if (string.IsNullOrWhiteSpace(listanomes[i]))
+                        if (string.IsNullOrWhiteSpace(listaNomes[i]))
                         {
                             for (int j = i; j < digito; j++)
                             {
-                                listanomes[j] = listanomes[j + 1];
+                                listaNomes[j] = listaNomes[j + 1];
                             }
-                            listanomes[digito] = input2;
+                            listaNomes[digito] = input2;
                             break;
                         }
                     }
                 }
             }
         }
-        static void Show(string[] listanomes)
+        static void Show(string[] listaNomes)
         {
-            for (int i = 0; i < listanomes.Length; i++)
+            for (int i = 0; i < listaNomes.Length; i++)
             {
-                if (!string.IsNullOrWhiteSpace(listanomes[i]))
+                if (!string.IsNullOrWhiteSpace(listaNomes[i]))
                 {
-                    Console.WriteLine($"{i + 1} - {listanomes[i]}");
+                    Console.WriteLine($"{i + 1} - {listaNomes[i]}");
                 }
             }
         }
-        static void Delete(string[] listanomes, int digitodelete, string inputregroup, string inputdelete)
+        static void Delete(string[] listaNomes, int digitoDelete, string inputRegroup, string inputDelete)
         {
-            if (inputregroup == "s")
+            if (inputRegroup == "s")
             {
-                for (int i = digitodelete; i < listanomes.Length - 1; i++)
+                for (int i = digitoDelete; i < listaNomes.Length - 1; i++)
                 {
-                    listanomes[i] = listanomes[i + 1];
+                    listaNomes[i] = listaNomes[i + 1];
                 }
-                listanomes[listanomes.Length - 1] = null;
+                listaNomes[listaNomes.Length - 1] = null;
             }
             else
             {
-                listanomes[digitodelete] = null;
+                listaNomes[digitoDelete] = null;
                 return;
             }
         }
-        static void Clear(string[] listanomes, string inputdelete)
+        static void Clear(string[] listaNomes)
         {
-            for (int i = 0; i < listanomes.Length; i++)
+            for (int i = 0; i < listaNomes.Length; i++)
             {
-                listanomes[i] = null;
+                listaNomes[i] = null;
             }
         }
-        static void Ordem(string[] listanomes)
+        static void Ordem(string[] listaNomes)
         {
             bool loop4 = true;
             while (loop4)
             {
                 loop4 = false;
-                for (int i = 0; i < listanomes.Length - 1; i++)
+                for (int i = 0; i < listaNomes.Length - 1; i++)
                 {
-                    if (string.IsNullOrWhiteSpace(listanomes[i]) && !string.IsNullOrWhiteSpace(listanomes[i + 1]))
+                    if (string.IsNullOrWhiteSpace(listaNomes[i]) && !string.IsNullOrWhiteSpace(listaNomes[i + 1]))
                     {
-                        string temp = listanomes[i];
-                        listanomes[i] = listanomes[i + 1];
-                        listanomes[i + 1] = temp;
+                        string temp = listaNomes[i];
+                        listaNomes[i] = listaNomes[i + 1];
+                        listaNomes[i + 1] = temp;
                         loop4 = true;
                     }
-                    else if (!string.IsNullOrWhiteSpace(listanomes[i]) && !string.IsNullOrWhiteSpace(listanomes[i + 1]))
+                    else if (!string.IsNullOrWhiteSpace(listaNomes[i]) && !string.IsNullOrWhiteSpace(listaNomes[i + 1]))
                     {
-                        int compare = String.Compare(listanomes[i], listanomes[i + 1]);
+                        int compare = String.Compare(listaNomes[i], listaNomes[i + 1]);
                         if (compare > 0)
                         {
-                            string temp = listanomes[i];
-                            listanomes[i] = listanomes[i + 1];
-                            listanomes[i + 1] = temp;
+                            string temp = listaNomes[i];
+                            listaNomes[i] = listaNomes[i + 1];
+                            listaNomes[i + 1] = temp;
                             loop4 = true;
                         }
                     }
