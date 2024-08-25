@@ -129,7 +129,7 @@ namespace Nomes
                 }
             }
         }
-        public static void Delete(string[] array, int digitoDelete, string inputRegroup, string inputDelete)
+        public static void Delete(string[] array, int digitoDelete, string inputRegroup)
         {
             if (inputRegroup == "s")
             {
